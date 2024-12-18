@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Property {
+  id              String         @id @default(uuid())
+  title           String
+  description     String
+  image           String
+  gallery         String[]      @default([])
+  price           Float
+  type            String
+  amenities       String[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  // Relations
+  location        Location?     @relation(fields: [locationId], references: [id])
+  locationId      String?         
+  specifications  Specifications? @relation(fields: [specificationsId], references: [id])
+  specificationsId String?
+  utilities       Utilities?    @relation(fields: [utilitiesId], references: [id])
+  utilitiesId     String?
+  agent           Agent?        @relation(fields: [agentId], references: [id])
+  agentId         String?
+  leaseTerms      LeaseTerms?   @relation(fields: [leaseTermsId], references: [id])
+  leaseTermsId    String?
+}
+
+model Location {
+  id               String     @id @default(uuid())
+  region           String
+  district         String
+  area             String
+  nearbyLandmarks  String[]   @default([])
+  distanceToTown   String
+  property         Property[]
+}
+
+model Specifications {
+  id             String     @id @default(uuid())
+  bedrooms       Int
+  bathrooms      Int
+  squareFootage  Float
+  furnished      Boolean
+  yearBuilt      Int
+  property       Property[]
+}
+
+model Utilities {
+  id           String     @id @default(uuid())
+  water        Boolean
+  electricity  Boolean
+  internet     Boolean
+  maintenance  String
+  property     Property[]
+}
+
+model Agent {
+  id          String      @id
+  name        String
+  email       String      @unique
+  phone       String
+  experience  String
+  languages   String[]
+  properties  Property[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model LeaseTerms {
+  id              String     @id @default(uuid())
+  minimumStay     String
+  securityDeposit Float
+  petsAllowed     Boolean
+  availableFrom   DateTime
+  property        Property[]
+}

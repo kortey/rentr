@@ -1,0 +1,121 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import { Box, Typography } from "@mui/material";
+import { houses } from "../constants/houses";
+import dynamic from "next/dynamic";
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import HouseCard from "./housecard";
+// HouseCard component remains the same
+
+const NextArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <ArrowForwardIosIcon
+      className={className}
+      style={{ ...style, display: "block", color: "#3B82F6" }}
+      onClick={onClick}
+    />
+  );
+};
+
+const PrevArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <ArrowBackIosIcon
+      className={className}
+      style={{ ...style, display: "block", color: "#3B82F6" }}
+      onClick={onClick}
+    />
+  );
+};
+
+const HouseSection = ({ title, houses }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  if (!mounted) return null;
+
+  return (
+    <Box className="mb-10 mt-10">
+      <Typography variant="h4" className="mb-4 text-[#3B82F6]">
+        {title}
+      </Typography>
+      <div className="slider-container">
+        <Slider {...settings}>
+          {houses.map((house, index) => (
+            <HouseCard key={`${house.Id}-${index}`} house={house} />
+          ))}
+        </Slider>
+      </div>
+    </Box>
+  );
+};
+
+// Houses component remains the same
+const Houses = () => {
+  return (
+    <div className="w-full min-h-screen flex justify-center">
+      <div className="w-[90%] min-h-screen">
+        <style jsx global>{`
+          .slick-slide > div {
+            margin: 0 10px;
+          }
+          .slick-list {
+            margin: 0 -10px;
+          }
+          .slick-prev,
+          .slick-next {
+            font-size: 24px;
+            z-index: 1;
+          }
+          .slick-prev {
+            left: -30px;
+          }
+          .slick-next {
+            right: -30px;
+          }
+        `}</style>
+        <HouseSection title="Featured" houses={houses} />
+        <HouseSection title="Recently Added" houses={houses} />
+        <HouseSection title="Single Rooms" houses={houses} />
+        <HouseSection title="One Bedroom Apartments" houses={houses} />
+        <HouseSection title="Two Bedroom Apartments" houses={houses} />
+      </div>
+    </div>
+  );
+};
+
+export default Houses;
