@@ -75,9 +75,7 @@ const PropertyForm = () => {
                 required
               />
             </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField fullWidth label="Image URL" name="image" required />
-            </Grid>
+
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
