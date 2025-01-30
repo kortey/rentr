@@ -10,19 +10,31 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession()
 
-  // if user is signed in and the current path is / or /sign-in redirect the user to /agent/dashboard
-  if (session && (req.nextUrl.pathname === '/' || req.nextUrl.pathname === '/sign-in')) {
+  // Get the current path
+  const path = req.nextUrl.pathname
+
+  // If user is signed in and trying to access auth pages, redirect to dashboard
+  if (session && (path === '/' || path === '/sign-in' || path === '/sign-up')) {
     return NextResponse.redirect(new URL('/agent/dashboard', req.url))
   }
 
-  // if user is not signed in and the current path is /agent/dashboard redirect the user to /
-  if (!session && req.nextUrl.pathname.startsWith('/agent/dashboard')) {
-    return NextResponse.redirect(new URL('/', req.url))
+  // If user is not signed in and trying to access protected routes, redirect to sign in
+  if (!session && path.startsWith('/agent')) {
+    const redirectUrl = new URL('/sign-in', req.url)
+    // Store the attempted URL to redirect back after login
+    redirectUrl.searchParams.set('redirect', path)
+    return NextResponse.redirect(redirectUrl)
   }
 
   return res
 }
 
+// Update matcher to include all protected routes
 export const config = {
-  matcher: ['/', '/agent/dashboard', '/sign-in', '/sign-up']
+  matcher: [
+    '/',
+    '/sign-in',
+    '/sign-up',
+    '/agent/:path*' // This will protect all routes that start with /agent/
+  ]
 }

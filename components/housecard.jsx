@@ -36,27 +36,27 @@ const HouseCard = ({ house }) => (
         </Typography>
       </Link>
       <Typography variant="body2" color="text.secondary" className="mb-2">
-        {house.Description.substring(0, 100)}...
+        {house.description ? house.description.substring(0, 100) : ""}...
       </Typography>
       <Box className="flex flex-wrap gap-2 mb-2">
         <Chip
-          label={house.loction.region}
+          label={house.location?.region || "Unknown"}
           size="small"
           className="bg-[#10B981] text-white"
         />
         <Chip
-          label={house.loction.district}
+          label={house.location?.district || "Unknown"}
           size="small"
           className="bg-[#10B981] text-white"
         />
         <Chip
-          label={house.loction.area}
+          label={house.location?.area || "Unknown"}
           size="small"
           className="bg-[#10B981] text-white"
         />
       </Box>
       <Typography variant="body2" className="text-[#F59E0B]">
-        Gallery: {house.galery.length} photos
+        Gallery: {house.gallery?.length || 0} photos
       </Typography>
     </CardContent>
   </Card>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Paper, Typography } from '@mui/material';
-import { Home, CheckCircle, PendingActions, Visibility } from '@mui/icons-material';
+import { Home, CheckCircle, Visibility } from '@mui/icons-material';
 
 const DashboardStats = ({ properties }) => {
   const stats = [
@@ -13,11 +13,6 @@ const DashboardStats = ({ properties }) => {
       title: 'Available',
       value: properties.filter(p => p.status === 'available').length,
       icon: <CheckCircle className="text-green-600" />,
-    },
-    {
-      title: 'Pending',
-      value: properties.filter(p => p.status === 'pending').length,
-      icon: <PendingActions className="text-orange-600" />,
     },
     {
       title: 'Total Views',

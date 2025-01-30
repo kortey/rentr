@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
-import { houses } from "../constants/houses";
 import dynamic from "next/dynamic";
 const Slider = dynamic(() => import("react-slick"), { ssr: false });
 import "slick-carousel/slick/slick.css";
@@ -33,7 +32,7 @@ const PrevArrow = (props) => {
   );
 };
 
-const HouseSection = ({ title, houses }) => {
+const HouseSection = ({ houses }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -85,7 +84,9 @@ const HouseSection = ({ title, houses }) => {
 };
 
 // Houses component remains the same
-const Houses = () => {
+const Houses = ({properties}) => {
+ 
+
   return (
     <div className="w-full min-h-screen flex justify-center">
       <div className="w-[90%] min-h-screen">
@@ -108,11 +109,11 @@ const Houses = () => {
             right: -30px;
           }
         `}</style>
-        <HouseSection title="Featured" houses={houses} />
-        <HouseSection title="Recently Added" houses={houses} />
-        <HouseSection title="Single Rooms" houses={houses} />
-        <HouseSection title="One Bedroom Apartments" houses={houses} />
-        <HouseSection title="Two Bedroom Apartments" houses={houses} />
+        <HouseSection title="Featured" houses={properties} />
+        <HouseSection title="Recently Added" houses={properties} />
+        <HouseSection title="Single Rooms" houses={properties} />
+        <HouseSection title="One Bedroom Apartments" houses={properties} />
+        <HouseSection title="Two Bedroom Apartments" houses={properties} />
       </div>
     </div>
   );

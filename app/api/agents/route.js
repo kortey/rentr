@@ -1,31 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from '../../../lib/prisma';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function POST(request) {
-  const { email, password, name, phone, experience, languages } = await request.json();
-  
+  const { userId, email, name, phone, experience, languages } = await request.json();
+  console.log(userId, email, name, phone, experience, languages)
   try {
-    // 1. Create the user account in Supabase
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        emailRedirectTo: `${request.headers.get('origin')}/auth/callback`
-      }
-    });
-
-    if (authError) throw authError;
-
     // 2. Create the agent profile in Prisma
-    if (authData.user) {
+    if (userId) {
       const agent = await prisma.agent.create({
         data: {
-          id: authData.user.id,
+          id:userId,
           name: name,
           email: email,
           phone: phone,

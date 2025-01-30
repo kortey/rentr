@@ -29,6 +29,6 @@
     "**/*.tsx",
     "components/housecard.jsx",
     "app/apartment/[id]/page.jsx"
-  ],
+, "app/api/properties/route.js", "components/PropertyForm.jsx"  ],
   "exclude": ["node_modules"]
 }
