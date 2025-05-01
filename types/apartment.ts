@@ -4,7 +4,7 @@ export interface ApartmentData {
   Description: string;
   image: string;
   galery: string[];
-  loction: {
+  location: {
     region: string;
     district: string;
     area: string;

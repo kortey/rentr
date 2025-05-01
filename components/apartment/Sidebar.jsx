@@ -1,11 +1,8 @@
 import React from "react";
 import { ApartmentData } from "../../types/apartment";
 
-interface SidebarProps {
-  apartmentData: ApartmentData;
-}
 
-const Sidebar = ({ apartmentData }: SidebarProps) => {
+const Sidebar = ({ apartmentData }) => {
   return (
     <div className="lg:col-span-1">
       <div className="bg-white rounded-lg shadow-lg p-6 space-y-6">
@@ -18,10 +15,10 @@ const Sidebar = ({ apartmentData }: SidebarProps) => {
         <div className="mb-6">
           <h3 className="text-lg font-semibold mb-2">Location Details</h3>
           <div className="space-y-2 text-gray-600">
-            <p>Region: {apartmentData.loction.region}</p>
-            <p>District: {apartmentData.loction.district}</p>
-            <p>Area: {apartmentData.loction.area}</p>
-            <p>Distance to Town: {apartmentData.loction.distanceToTown}</p>
+            <p>Region: {apartmentData.location.region}</p>
+            <p>District: {apartmentData.location.district}</p>
+            <p>Area: {apartmentData.location.area}</p>
+            <p>Distance To Town: {apartmentData.location.distanceToTown}</p>
           </div>
         </div>
 

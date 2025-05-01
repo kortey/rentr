@@ -19,15 +19,15 @@ const ApartmentDetails = ({ apartmentData }: ApartmentDetailsProps) => {
         {/* Location Chips */}
         <div className="flex flex-wrap gap-2 mb-6">
           <Chip
-            label={apartmentData.loction.region}
+            label={apartmentData.location.region}
             className="bg-blue-600 text-white"
           />
           <Chip
-            label={apartmentData.loction.district}
+            label={apartmentData.location.district}
             className="bg-blue-600 text-white"
           />
           <Chip
-            label={apartmentData.loction.area}
+            label={apartmentData.location.area}
             className="bg-blue-600 text-white"
           />
         </div>

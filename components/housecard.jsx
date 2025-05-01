@@ -14,7 +14,11 @@ import dynamic from "next/dynamic";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const HouseCard = ({ house }) => (
+const HouseCard = ({ house }) => {
+  
+  console.log(house)
+
+  return (
   <Card className="mx-2 my-4 h-full shadow-lg">
     <CardMedia component="div" className="h-48 relative">
       <Image
@@ -26,7 +30,7 @@ const HouseCard = ({ house }) => (
       />
     </CardMedia>
     <CardContent className="bg-white">
-      <Link href={`/apartment/${house.Id}`} passHref>
+      <Link href={`/apartment/${house.id}`} passHref>
         <Typography
           variant="h6"
           component="div"
@@ -60,6 +64,7 @@ const HouseCard = ({ house }) => (
       </Typography>
     </CardContent>
   </Card>
-);
+  )
+};
 
 export default HouseCard;

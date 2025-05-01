@@ -53,8 +53,6 @@ async function uploadImageToSupabase(file, folder) {
 export async function POST(request) {
   try {
     const formData = await request.formData();
-    console.log(formData)
-
     const userId = formData.get("userId");
     if (!userId) {
       return NextResponse.json(
